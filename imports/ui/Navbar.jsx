@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bootstrap } from 'meteor/twbs:bootstrap';
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 // Task component - represents a single debit or credit account
 export default class Navbar extends Component {
@@ -22,6 +22,9 @@ export default class Navbar extends Component {
               <li><a href="#items">Bills/Payments</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a href="#" className="navbar-link"><AccountsUIWrapper /></a></li>
             </ul>
           </div>
         </div>

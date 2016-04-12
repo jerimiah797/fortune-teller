@@ -26,8 +26,8 @@ export default class App extends Component {
       <div className="container">
         <header>
           <Navbar />
-          <AccountsUIWrapper />
         </header>
+        
         <Hero />
         <h1>Bills / Payments</h1>
 
