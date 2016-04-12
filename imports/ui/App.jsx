@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 import Task from './Task.jsx';
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+import Navbar from './Navbar.jsx';
+import Hero from './Hero.jsx';
 
 // App component - represents the whole App
 export default class App extends Component {
@@ -22,8 +25,11 @@ export default class App extends Component {
     return (
       <div className="container">
         <header>
-          <h1>Bills / Payments</h1>
+          <Navbar />
+          <AccountsUIWrapper />
         </header>
+        <Hero />
+        <h1>Bills / Payments</h1>
 
         <ul>
           {this.renderEvents()}
