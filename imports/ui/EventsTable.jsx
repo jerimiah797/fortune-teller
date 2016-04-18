@@ -12,17 +12,17 @@ class EventsTable extends Component {
     console.log("pressed the Add button");
   }
 
-  getEvents() {
-    return [
-      { _id: 1, name: 'Car Payment', amount: 500, type: 'Expense', frequency: 'Once a month' },
-      { _id: 2, name: 'House Payment', amount: 1150, type: 'Expense', frequency: 'Once a month' },
-      { _id: 3, name: 'Paycheck', amount: 2200, type: 'Income', frequency: 'Twice a month' },
-      { _id: 4, name: 'Cell Phone', amount: 150, type: 'Expense', frequency: 'Once a week' },
-      { _id: 5, name: 'Utilities', amount: 225, type: 'Expense', frequency: 'Every other month' },
-      { _id: 6, name: 'Groceries', amount: 200, type: 'Expense', frequency: 'Every other week' },
-
-    ];
-  }
+  // getEvents() {
+  //   return [
+  //     { _id: 1, name: 'Car Payment', amount: 500, type: 'Expense', frequency: 'Once a month' },
+  //     { _id: 2, name: 'House Payment', amount: 1150, type: 'Expense', frequency: 'Once a month' },
+  //     { _id: 3, name: 'Paycheck', amount: 2200, type: 'Income', frequency: 'Twice a month' },
+  //     { _id: 4, name: 'Cell Phone', amount: 150, type: 'Expense', frequency: 'Once a week' },
+  //     { _id: 5, name: 'Utilities', amount: 225, type: 'Expense', frequency: 'Every other month' },
+  //     { _id: 6, name: 'Groceries', amount: 200, type: 'Expense', frequency: 'Every other week' },
+  //
+  //   ];
+  // }
 
   renderEvents() {
     return this.props.events.map((event) => (
