@@ -19,9 +19,9 @@ export default class Navbar extends Component {
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li className="active"><a href="#">Home</a></li>
-              <li><a href="#items">Bills/Payments</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#items">Events</a></li>
+              <li><a href="#about">Calendar</a></li>
+              <li><a href="#contact">Fortune</a></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li><a href="#" className="navbar-link"><AccountsUIWrapper /></a></li>
