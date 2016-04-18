@@ -24,7 +24,7 @@ export default class EventForm extends Component {
         <div className="col-md-8 col-sm-8 col-xs-12 center-block">
          <form className="form-horizontal new-event" id="new-event" >
           <div className="form-group ">
-           <label className="control-label col-sm-4" for="name">
+           <label className="control-label col-sm-4" forHTML="name">
             Name
            </label>
            <div className="col-sm-4">
@@ -32,7 +32,7 @@ export default class EventForm extends Component {
              </div>
             </div>
             <div className="form-group" id="type">
-             <label className="control-label col-sm-4 requiredField" for="radio">
+             <label className="control-label col-sm-4 requiredField" forHTML="radio">
 
              </label>
              <div className="col-sm-8">
@@ -50,7 +50,7 @@ export default class EventForm extends Component {
            </div>
           </div>
           <div className="form-group ">
-           <label className="control-label col-sm-4 requiredField" for="number">
+           <label className="control-label col-sm-4 requiredField" forHTML="number">
             Amount
            </label>
            <div className="col-sm-4">
@@ -66,7 +66,7 @@ export default class EventForm extends Component {
            </div>
           </div>
           <div className="form-group">
-           <label className="control-label col-sm-4 requiredField" for="radio1">
+           <label className="control-label col-sm-4 requiredField" forHTML="radio1">
 
            </label>
            <div className="col-sm-8 " id="toggle_recur">
@@ -106,7 +106,7 @@ class RecurringFields extends Component {
     return (
       <div>
         <div className="form-group" id="period">
-         <label className="control-label col-sm-4" for="radio2">
+         <label className="control-label col-sm-4" forHTML="radio2">
           Every
          </label>
          <div className="col-sm-8">
@@ -124,7 +124,9 @@ class RecurringFields extends Component {
           </label>
          </div>
         </div>
+        <MonthOfYearSelector />
         <DayOfMonthSelector />
+        <DayOfWeekSelector />
         <PeriodSelector />
         <SkipsEnabled />
       </div>
@@ -164,7 +166,7 @@ class SkipsEnabled extends Component {
   render() {
     return (
       <div className="form-group ">
-       <label className="control-label col-sm-4" for="select2">
+       <label className="control-label col-sm-4" forHTML="select2">
         How often?
        </label>
        <div className="col-sm-5">
@@ -182,15 +184,16 @@ class SkipsEnabled extends Component {
     );
   }
 }
+
 class DayOfMonthSelector extends Component {
   render() { //this component will be rendered as many times as dates that are chosen
     return(
 
       <div className="form-group">
-       <label className="control-label col-sm-4" for="dayofmonth">
-      {/*{{#if first_instance @index}}*/}
+       <label className="control-label col-sm-4" forHTML="dayofmonth">
+            {/*{{#if first_instance @index}}*/}
         Date(s) of Month?
-      {/*{{/if}}*/}
+            {/*{{/if}}*/}
        </label>
        <div className="col-sm-4">
         <select className="select form-control date_picker" id="" name="dayofmonth">
@@ -303,6 +306,95 @@ class DayOfMonthSelector extends Component {
            <span  className="fa fa-minus" id=""></span>
          </button>
          {/*{{/if}}*/}
+       </div>
+      </div>
+    );
+  }
+}
+
+class DayOfWeekSelector extends Component {
+  render() {
+    return(
+      <div className="form-group ">
+       <label className="control-label col-sm-4" forHTML="days-of-week">
+        Day(s) of Week?
+       </label>
+       <div className="col-sm-4">
+        <select className="select form-control" id="days-of-week" name="days-of-week">
+         <option value="Monday">
+          Monday
+         </option>
+         <option value="Tuesday">
+          Tuesday
+         </option>
+         <option value="Wednesday">
+          Wednesday
+         </option>
+         <option value="Thursday">
+          Thursday
+         </option>
+         <option value="Friday">
+          Friday
+         </option>
+         <option value="Saturday">
+          Saturday
+         </option>
+         <option value="Sunday">
+          Sunday
+         </option>
+        </select>
+       </div>
+      </div>
+    );
+  }
+}
+
+class MonthOfYearSelector extends Component {
+  render() {
+    return(
+      <div className="form-group ">
+       <label className="control-label col-sm-4" forHTML="month-of-year">
+        Month(s) of Year?
+       </label>
+       <div className="col-sm-4">
+        <select className="select form-control" id="month-of-year" name="month-of-year">
+         <option value="January">
+          January
+         </option>
+         <option value="February">
+          February
+         </option>
+         <option value="March">
+          March
+         </option>
+         <option value="April">
+          April
+         </option>
+         <option value="May">
+          May
+         </option>
+         <option value="June">
+          June
+         </option>
+         <option value="July">
+          July
+         </option>
+         <option value="August">
+          August
+         </option>
+         <option value="September">
+          September
+         </option>
+         <option value="October">
+          October
+         </option>
+         <option value="November">
+          November
+         </option>
+         <option value="December">
+          December
+         </option>
+        </select>
        </div>
       </div>
     );
