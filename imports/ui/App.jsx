@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import EventsTable from './EventsTable.jsx';
+import EventForm from './EventForm.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Navbar from './Navbar.jsx';
 import Hero from './Hero.jsx';
@@ -15,8 +16,9 @@ export default class App extends Component {
         <header>
           <Navbar />
         </header>
-        
+
         <EventsTable />
+        <EventForm />
       </div>
     );
   }
