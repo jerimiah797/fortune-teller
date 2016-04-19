@@ -7,95 +7,124 @@ export default class EventForm extends Component {
   // }
   // whoops! only works for React.createClass
   // Use this for extending components
+
   constructor(props) {
     super(props);
 
     this.state = {
-      author: '',
-      text: '',
-      period: 'Week',
+      name: '',
+      type: '',
+      period: '',
+      number: '',
+      recurring: false,
+      showrecurring: null,
+      createdAt: '',
+    }
+
+  }
+
+
+  handleRecurringToggle(event) {
+    //event.preventDefault();
+    console.log("Event target value: "+event.target.value);
+    this.setState({recurring: event.target.value});
+    this.renderRecurring();
+    //console.log(this.state);
+    //console.log("Setting new state for recurring: "+new);
+  }
+
+  renderRecurring() {
+    console.log("state in renderRecurring function: "+this.state.recurring);
+    if (this.state.recurring == true) {
+      this.setState.showrecurring = <RecurringFields  data={this.state.data}/>;
+    } else {
+      this.setState.showrecurring = '';
     }
   }
 
   render() {
+    console.log("State for recurring at render: "+this.state.recurring);
     return (
       <div className="container-fluid">
-       <div className="row">
-        <div className="col-md-8 col-sm-8 col-xs-12 center-block">
-         <form className="form-horizontal new-event" id="new-event" >
-          <div className="form-group ">
-           <label className="control-label col-sm-4" forHTML="name">
-            Name
-           </label>
-           <div className="col-sm-4">
-              <input className="form-control" id="name" name="name" type="text"/>
-             </div>
-            </div>
-            <div className="form-group" id="type">
-             <label className="control-label col-sm-4 requiredField" forHTML="radio">
+        <div className="row">
+          <div className="col-md-8 col-sm-8 col-xs-12 center-block">
+            <form className="form-horizontal new-event" id="new-event" >
+              <div className="form-group ">
+                <label className="control-label col-sm-4" forHTML="name">
+                 Name
+                </label>
+                <div className="col-sm-4">
+                  <input className="form-control" id="name" name="name" type="text"/>
+                </div>
+              </div>
 
-             </label>
-             <div className="col-sm-8">
-              <label className="radio-inline">
-               <input name="radio" type="radio" id="type_payment" value="Payment"/>
-               Payment
-              </label>
-            <label className="radio-inline">
-             <input name="radio" type="radio" id="type_income" value="Income"/>
-             Income
-            </label>
-            <span className="help-block" id="hint_radio">
+              <div className="form-group" id="type">
+                <label className="control-label col-sm-4 requiredField" forHTML="radio">
 
-            </span>
-           </div>
+                </label>
+                <div className="col-sm-8">
+                  <label className="radio-inline">
+                    <input name="radio" type="radio" id="type_payment" value="Payment"/>
+                    Payment
+                  </label>
+                  <label className="radio-inline">
+                    <input name="radio" type="radio" id="type_income" value="Income"/>
+                    Income
+                  </label>
+                  <span className="help-block" id="hint_radio">
+
+                  </span>
+                </div>
+              </div>
+
+              <div className="form-group ">
+                <label className="control-label col-sm-4 requiredField" forHTML="number">
+                 Amount
+                </label>
+                <div className="col-sm-4">
+                  <div className="input-group">
+                    <div className="input-group-addon">
+                      $
+                    </div>
+                    <input className="form-control" id="amount" name="number" placeholder="250" type="text"/>
+                    <div className="input-group-addon">
+                      .00
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group" onChange={this.handleRecurringToggle.bind(this)} >
+                <label className="control-label col-sm-4 requiredField" forHTML="radio1">
+
+                </label>
+                <div className="col-sm-8 " id="toggle_recur">
+                  <label className="radio-inline">
+                    <input name="radio1" type="radio" id="recur_off" value="false"/>
+                    One Time
+                  </label>
+                  <label className="radio-inline">
+                    <input name="radio1" type="radio" id="recur_on" value="true"/>
+                    Repeating
+                  </label>
+                  <span className="help-block" id="hint_recur">
+                    Select 'Repeating' if this item occurs on a regular basis.
+                  </span>
+                </div>
+              </div>
+
+              {this.state.showrecurring}
+
+              <div className="form-group">
+                <div className="col-sm-8 col-sm-offset-4">
+                  <button className="btn btn-primary " name="submit" type="submit">
+                    Create New Event
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
-          <div className="form-group ">
-           <label className="control-label col-sm-4 requiredField" forHTML="number">
-            Amount
-           </label>
-           <div className="col-sm-4">
-            <div className="input-group">
-             <div className="input-group-addon">
-              $
-             </div>
-             <input className="form-control" id="amount" name="number" placeholder="250" type="text"/>
-             <div className="input-group-addon">
-              .00
-             </div>
-            </div>
-           </div>
-          </div>
-          <div className="form-group">
-           <label className="control-label col-sm-4 requiredField" forHTML="radio1">
-
-           </label>
-           <div className="col-sm-8 " id="toggle_recur">
-            <label className="radio-inline">
-             <input name="radio1" type="radio" id="recur_off" value="false"/>
-             One Time
-            </label>
-            <label className="radio-inline">
-             <input name="radio1" type="radio" id="recur_on" value="true"/>
-             Repeating
-            </label>
-            <span className="help-block" id="hint_recur">
-             Select 'Repeating' if this item occurs on a regular basis.
-            </span>
-           </div>
-          </div>
-
-          <RecurringFields />
-
-          <div className="form-group">
-           <div className="col-sm-8 col-sm-offset-4">
-            <button className="btn btn-primary " name="submit" type="submit">
-             Create New Event
-            </button>
-           </div>
-          </div>
-         </form>
         </div>
-       </div>
       </div>
     );
   }
@@ -103,36 +132,41 @@ export default class EventForm extends Component {
 
 class RecurringFields extends Component {
   render() {
+    console.log(this.props);
     return (
       <div>
         <div className="form-group" id="period">
-         <label className="control-label col-sm-4" forHTML="radio2">
+          <label className="control-label col-sm-4" forHTML="radio2">
           Every
-         </label>
-         <div className="col-sm-8">
-          <label className="radio-inline">
-           <input name="radio2" type="radio" id="period_week" value="Week"/>
-           Week
           </label>
-          <label className="radio-inline">
-           <input name="radio2" type="radio" id="period_month" value="Month"/>
-           Month
-          </label>
-          <label className="radio-inline">
-           <input name="radio2" type="radio" id="period_year" value="Year"/>
-           Year
-          </label>
-         </div>
+          <div className="col-sm-8">
+            <label className="radio-inline">
+              <input name="radio2" type="radio" id="period_week" value="Week"/>
+              Week
+            </label>
+            <label className="radio-inline">
+              <input name="radio2" type="radio" id="period_month" value="Month"/>
+              Month
+            </label>
+            <label className="radio-inline">
+              <input name="radio2" type="radio" id="period_year" value="Year"/>
+              Year
+            </label>
+          </div>
         </div>
         <MonthOfYearSelector />
         <DayOfMonthSelector />
         <DayOfWeekSelector />
-        <PeriodSelector />
+        <PeriodSelector period={this.props.data.period} number={this.props.data.number}/>
         <SkipsEnabled />
       </div>
     );
   }
 }
+
+// RecurringFields.propTypes = {
+//   data: PropTypes.object.isRequired,
+// };
 
 class PeriodSelector extends Component {
   getPeriod() {
@@ -141,12 +175,13 @@ class PeriodSelector extends Component {
   }
 
   render() {
+    console.log("Props inside PeriodSelector: "+this.props);
     return (
       <div className="form-group" id="div_checkbox">
         <div className="col-sm-8 col-sm-offset-4">
           <label className="checkbox-horizontal">
             <input name="checkbox" type="checkbox" id="enable_skips" value="Less often than every week"/>
-             Less often than every {this.getPeriod()}
+             Less often than every {this.props.period}
           </label>
           <span className="help-block" id="hint_checkbox">
             Use this for things like 'every other {this.getPeriod()}'
