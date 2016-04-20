@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import EventsTable from './EventsTable.jsx';
-import EventForm from './EventForm.jsx';
+import EventForm from './forms/EventForm.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import Navbar from './Navbar.jsx';
 import Hero from './Hero.jsx';
