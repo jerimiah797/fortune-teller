@@ -5,9 +5,15 @@ export default class EventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      author: '',
-      text: '',
-      period: 'Week',
+      showMain: true,
+      showRecur: true,
+      showWeekly: true,
+      showMonthly: false,
+      showYearly: false,
+      showSkips: true,
+      showSkipFreq: false,
+      name: '',
+      period: null,
     }
   }
 
@@ -15,13 +21,33 @@ export default class EventForm extends Component {
     return (
       <div id="border" style={{width: "100%", background:"gray", border:"1px solid black"}}>
         <h4>Hi, I'm the Event Form!</h4>
-        <Main />
-        <Recur />
-        <Weekly />
-        <Monthly />
-        <Yearly />
-        <Skips />
-        <SkipFreq />
+          { this.state.showMain ?
+            <Main />
+            : null
+          }
+          { this.state.showRecur ?
+            <Recur />
+            : null
+          }{ this.state.showWeekly ?
+            <Weekly />
+            : null
+          }
+          { this.state.showMonthly ?
+            <Monthly />
+            : null
+          }
+          { this.state.showYearly ?
+            <Yearly />
+            : null
+          }
+          { this.state.showSkips ?
+            <Skips />
+            : null
+          }
+          { this.state.showSkipFreq ?
+            <SkipFreq />
+            : null
+          }
       </div>
     );
   }
