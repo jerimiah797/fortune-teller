@@ -5,13 +5,12 @@ export default class EventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMain: true,
-      showRecur: true,
+      showRecur: false,
       showWeekly: true,
-      showMonthly: false,
-      showYearly: false,
+      showMonthly: true,
+      showYearly: true,
       showSkips: true,
-      showSkipFreq: false,
+      showSkipFreq: true,
       name: '',
       period: null,
     }
@@ -21,31 +20,15 @@ export default class EventForm extends Component {
     return (
       <div id="border" style={{width: "100%", background:"gray", border:"1px solid black"}}>
         <h4>Hi, I'm the Event Form!</h4>
-          { this.state.showMain ?
-            <Main />
-            : null
-          }
+          <Main />
           { this.state.showRecur ?
-            <Recur />
-            : null
-          }{ this.state.showWeekly ?
-            <Weekly />
-            : null
-          }
-          { this.state.showMonthly ?
-            <Monthly />
-            : null
-          }
-          { this.state.showYearly ?
-            <Yearly />
-            : null
-          }
-          { this.state.showSkips ?
-            <Skips />
-            : null
-          }
-          { this.state.showSkipFreq ?
-            <SkipFreq />
+            <Recur
+              showWeekly={this.state.showWeekly}
+              showMonthly={this.state.showMonthly}
+              showYearly={this.state.showYearly}
+              showSkips={this.state.showSkips}
+              showSkipFreq={this.state.showSkipFreq}
+             />
             : null
           }
       </div>
@@ -58,7 +41,7 @@ export default class EventForm extends Component {
 class Main extends Component {
   render() {
     return(
-      <div id="border" style={{width: "90%", background:"gray", border:"1px solid black"}}>
+      <div id="border" style={{width: "95%", background:"gray", border:"1px solid black"}}>
         <h4>Main</h4>
         <p>Name Text Box</p>
         <p>Type - Payment or Income Radio Buttons</p>
@@ -76,6 +59,26 @@ class Recur extends Component {
       <div id="border" style={{width: "90%", background:"gray", border:"1px solid black"}}>
         <h4>Recur</h4>
         <p>Period Selector - Weekly, Monthly, Yearly</p>
+          { this.props.showWeekly ?
+            <Weekly />
+            : null
+          }
+          { this.props.showMonthly ?
+            <Monthly />
+            : null
+          }
+          { this.props.showYearly ?
+            <Yearly />
+            : null
+          }
+          { this.props.showSkips ?
+            <Skips />
+            : null
+          }
+          { this.props.showSkipFreq ?
+            <SkipFreq />
+            : null
+          }
       </div>
     );
   }
