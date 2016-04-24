@@ -41,6 +41,10 @@ export default class App extends Component {
           <p>The showModal state variable is now true</p>
           : <p>The showModal state variable is now false</p>
         }
+        { this.state.showModal ?
+          <EventModal showModal={this.state.showModal} onHide={this.close} />
+          : null
+        }
       </div>
     );
   }

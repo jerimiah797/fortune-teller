@@ -59,7 +59,8 @@ class EventsTable extends Component {
                       <td> </td>
                       <td> </td>
                       <td>
-                        <button type="button" className="add pull-right btn-primary btn-xs" id="show_form" onClick={this.props.openEventModal}>
+                        <button type="button" className="add pull-right btn-primary btn-xs"
+                                id="show_form" onClick={this.props.openEventModal}>
                           <span className="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
                         </button>
                       </td>
@@ -67,7 +68,7 @@ class EventsTable extends Component {
                   </tbody>
                 </table>
 
-                {this.props.showModal ? <EventModal showModal={this.props.showModal} onHide={this.props.onHide} /> : null}
+                
 
             </div>
 
