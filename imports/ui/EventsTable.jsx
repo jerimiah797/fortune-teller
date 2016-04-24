@@ -5,12 +5,11 @@ import { Events } from '../api/events.js';
 
 import ReactDOM from 'react-dom';
 import Event from './Event.jsx';
+import EventModal from './EventModal.jsx';
 
 // Task component - represents a single debit or credit account
 class EventsTable extends Component {
-  handleAddButtonClick() {
-    console.log("pressed the Add button");
-  }
+
 
   // getEvents() {
   //   return [
@@ -60,7 +59,7 @@ class EventsTable extends Component {
                       <td> </td>
                       <td> </td>
                       <td>
-                        <button type="button" className="add pull-right btn-primary btn-xs" id="show_form" onClick={this.handleAddButtonClick.bind(this)}>
+                        <button type="button" className="add pull-right btn-primary btn-xs" id="show_form" onClick={this.props.openEventModal}>
                           <span className="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
                         </button>
                       </td>
@@ -68,7 +67,7 @@ class EventsTable extends Component {
                   </tbody>
                 </table>
 
-
+                {this.props.showModal ? <EventModal showModal={this.props.showModal} onHide={this.props.onHide} /> : null}
 
             </div>
 

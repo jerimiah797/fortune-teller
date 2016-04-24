@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { Button, Form, FormGroup, FormControl, Col, Checkbox } from 'react-bootstrap';
+
 
 export default class EventForm extends Component {
   constructor(props) {
@@ -18,20 +20,19 @@ export default class EventForm extends Component {
 
   render() {
     return (
-      <div id="border" style={{width: "100%", background:"gray", border:"1px solid black"}}>
-        <h4>Hi, I'm the Event Form!</h4>
-          <Main />
-          { this.state.showRecur ?
-            <Recur
-              showWeekly={this.state.showWeekly}
-              showMonthly={this.state.showMonthly}
-              showYearly={this.state.showYearly}
-              showSkips={this.state.showSkips}
-              showSkipFreq={this.state.showSkipFreq}
-             />
-            : null
-          }
-      </div>
+      <Form horizontal>
+        <Main />
+        { this.state.showRecur ?
+          <Recur
+            showWeekly={this.state.showWeekly}
+            showMonthly={this.state.showMonthly}
+            showYearly={this.state.showYearly}
+            showSkips={this.state.showSkips}
+            showSkipFreq={this.state.showSkipFreq}
+           />
+          : null
+        }
+      </Form>
     );
   }
 }
@@ -41,13 +42,38 @@ export default class EventForm extends Component {
 class Main extends Component {
   render() {
     return(
-      <div id="border" style={{width: "95%", background:"gray", border:"1px solid black"}}>
-        <h4>Main</h4>
-        <p>Name Text Box</p>
-        <p>Type - Payment or Income Radio Buttons</p>
-        <p>Amount in Dollars</p>
-        <p>Recurring? Radio Buttons</p>
+      <div>
+        <FormGroup controlId="formHorizontalEmail">
+          <Col componentClass="EventForm" sm={2}>
+            Email
+          </Col>
+          <Col sm={10}>
+            <FormControl type="email" placeholder="Email" />
+          </Col>
+        </FormGroup>
 
+        <FormGroup controlId="formHorizontalPassword">
+          <Col componentClass="EventForm" sm={2}>
+            Password
+          </Col>
+          <Col sm={10}>
+            <FormControl type="password" placeholder="Password" />
+          </Col>
+        </FormGroup>
+
+        <FormGroup>
+          <Col smOffset={2} sm={10}>
+            <Checkbox>Remember me</Checkbox>
+          </Col>
+        </FormGroup>
+
+        <FormGroup>
+          <Col smOffset={2} sm={10}>
+            <Button type="submit">
+              Sign in
+            </Button>
+          </Col>
+        </FormGroup>
       </div>
     );
   }
