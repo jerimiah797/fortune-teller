@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Form, FormGroup, FormControl, Col, Checkbox } from 'react-bootstrap';
+import { Button, Form, FormGroup, FormControl, Col, Checkbox, Radio } from 'react-bootstrap';
 
 
 export default class EventForm extends Component {
@@ -43,37 +43,66 @@ class Main extends Component {
   render() {
     return(
       <div>
-        <FormGroup controlId="formHorizontalEmail">
-          <Col componentClass="EventForm" sm={2}>
-            Email
-          </Col>
-          <Col sm={10}>
-            <FormControl type="email" placeholder="Email" />
-          </Col>
-        </FormGroup>
+        <div className="form-group ">
+         <label className="control-label col-sm-4" htmlhtmlhtmlFor="name">
+          Name
+         </label>
+         <div className="col-sm-4">
+            <input className="form-control" id="name" name="name" type="text"/>
+           </div>
+          </div>
+          <div className="form-group" id="type">
+           <label className="control-label col-sm-4 requiredField" htmlhtmlFor="radio">
 
-        <FormGroup controlId="formHorizontalPassword">
-          <Col componentClass="EventForm" sm={2}>
-            Password
-          </Col>
-          <Col sm={10}>
-            <FormControl type="password" placeholder="Password" />
-          </Col>
-        </FormGroup>
+           </label>
+           <div className="col-sm-8">
+            <label className="radio-inline">
+             <input name="radio" type="radio" id="type_payment" value="Payment"/>
+             Payment
+            </label>
+          <label className="radio-inline">
+           <input name="radio" type="radio" id="type_income" value="Income"/>
+           Income
+          </label>
+          <span className="help-block" id="hint_radio">
 
-        <FormGroup>
-          <Col smOffset={2} sm={10}>
-            <Checkbox>Remember me</Checkbox>
-          </Col>
-        </FormGroup>
+          </span>
+         </div>
+        </div>
+        <div className="form-group ">
+         <label className="control-label col-sm-4 requiredField" htmlhtmlFor="number">
+          Amount
+         </label>
+         <div className="col-sm-4">
+          <div className="input-group">
+           <div className="input-group-addon">
+            $
+           </div>
+           <input className="form-control" id="amount" name="number" placeholder="250" type="text"/>
+           <div className="input-group-addon">
+            .00
+           </div>
+          </div>
+         </div>
+        </div>
+        <div className="form-group">
+         <label className="control-label col-sm-4 requiredField" htmlhtmlFor="radio1">
 
-        <FormGroup>
-          <Col smOffset={2} sm={10}>
-            <Button type="submit">
-              Sign in
-            </Button>
-          </Col>
-        </FormGroup>
+         </label>
+         <div className="col-sm-8 " id="toggle_recur">
+          <label className="radio-inline">
+           <input name="radio1" type="radio" id="recur_off" value="false"/>
+           One Time
+          </label>
+          <label className="radio-inline">
+           <input name="radio1" type="radio" id="recur_on" value="true"/>
+           Repeating
+          </label>
+          <span className="help-block" id="hint_recur">
+           Select 'Repeating' if this item occurs on a regular basis.
+          </span>
+         </div>
+        </div>
       </div>
     );
   }

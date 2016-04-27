@@ -11,10 +11,10 @@ export default class EventModal extends Component {
     return(
       <Modal show={this.props.showModal}>
           <Modal.Header>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Create an Event</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Text in a modal</h4>
+            <EventForm />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.onHide}>Save</Button>
