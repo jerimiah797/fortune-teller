@@ -7,28 +7,58 @@ export default class EventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showRecur: true,
-      showWeekly: false,
-      showMonthly: true,
-      showYearly: false,
+      recurring: false,
       showSkips: true,
       showSkipFreq: true,
       name: '',
-      period: null,
+      type: 'payment',
+      period: 'week',
+      amount: '',
+    }
+  }
+
+  handleNameChange(e) {
+    this.setState({name: e.target.value});
+  }
+
+  handleTypeChange(e) {
+    if (e.target.value != this.state.type) {
+      (this.state.type == 'payment') ?
+        this.setState({type: 'income'})
+        : this.setState({type: 'payment'});
+    }
+  }
+
+  handleAmountChange(e) {
+    this.setState({amount: e.target.value})
+  }
+
+  handleRecurChange(e) {
+    if ((e.target.value == 'once') && (this.state.recurring)) {
+      this.setState({recurring: !this.state.recurring})
+    } else if ((e.target.value == 'recurring') && (!this.state.recurring)) {
+      this.setState({recurring: !this.state.recurring})
     }
   }
 
   render() {
     return (
       <Form horizontal>
-        <Main />
-        { this.state.showRecur ?
+        <Main
+          name={this.state.name}
+          type={this.state.type}
+          amount={this.state.amount}
+          recurring={this.state.recurring}
+          handleNameChange={this.handleNameChange.bind(this)}
+          handleTypeChange={this.handleTypeChange.bind(this)}
+          handleAmountChange={this.handleAmountChange.bind(this)}
+          handleRecurChange={this.handleRecurChange.bind(this)}
+          />
+        { this.state.recurring ?
           <Recur
-            showWeekly={this.state.showWeekly}
-            showMonthly={this.state.showMonthly}
-            showYearly={this.state.showYearly}
             showSkips={this.state.showSkips}
             showSkipFreq={this.state.showSkipFreq}
+            period={this.state.period}
            />
           : null
         }
@@ -37,10 +67,16 @@ export default class EventForm extends Component {
   }
 }
 
-// snipped from the div: , height:"500px"
-
 class Main extends Component {
   render() {
+    name = this.props.name;
+    type = this.props.type;
+    amount = this.props.amount;
+    recurring = this.props.recurring;
+    handleNameChange = this.props.handleNameChange;
+    handleTypeChange = this.props.handleTypeChange;
+    handleAmountChange = this.props.handleAmountChange;
+    handleRecurChange = this.props.handleRecurChange;
     return(
       <div>
         <FormGroup controlId="ev_Name">
@@ -48,7 +84,7 @@ class Main extends Component {
             Name
           </Col>
           <Col sm={4}>
-            <FormControl type="text" placeholder="Car Payment" />
+            <FormControl type="text" placeholder="Car Payment" value={name} onChange={handleNameChange}/>
           </Col>
         </FormGroup>
 
@@ -57,11 +93,11 @@ class Main extends Component {
 
           </Col>
           <Col sm={6}>
-            <Radio inline>
+            <Radio inline value="payment" checked={(type == 'payment') ? true : false} onChange={handleTypeChange}>
               Payment
             </Radio>
             {' '}
-            <Radio inline>
+            <Radio inline value="income" checked={(type == 'income') ? true : false} onChange={handleTypeChange}>
               Income
             </Radio>
           </Col>
@@ -74,7 +110,7 @@ class Main extends Component {
           <Col sm={4}>
             <InputGroup>
               <InputGroup.Addon>$</InputGroup.Addon>
-              <FormControl type="text" placeholder="250"/>
+              <FormControl type="text" placeholder="250" value={amount} onChange={handleAmountChange}/>
               <InputGroup.Addon>.00</InputGroup.Addon>
             </InputGroup>
           </Col>
@@ -85,11 +121,11 @@ class Main extends Component {
 
           </Col>
           <Col sm={6}>
-            <Radio inline>
+            <Radio inline value="once" checked={!recurring} onChange={handleRecurChange}>
               One Time
             </Radio>
             {' '}
-            <Radio inline>
+            <Radio inline value='recurring' checked={recurring} onChange={handleRecurChange}>
               Repeating
             </Radio>
             <HelpBlock>Select 'Repeating' if this item occurs on a regular basis.</HelpBlock>
@@ -102,6 +138,7 @@ class Main extends Component {
 
 class Recur extends Component {
   render() {
+    var period = this.props.period;
     return(
       <div>
         <FormGroup controlId="ev_Period">
@@ -110,37 +147,40 @@ class Recur extends Component {
           </Col>
           <Col sm={6}>
             <Radio inline>
-              Weekly
+              Week
             </Radio>
             {' '}
             <Radio inline>
-              Monthly
+              Month
             </Radio>
             {' '}
             <Radio inline>
-              Yearly
+              Year
             </Radio>
           </Col>
         </FormGroup>
 
-          { this.props.showWeekly ?
-            <Weekly />
+          { (period == "week") ?
+            <Weekly period={period}/>
             : null
           }
-          { this.props.showMonthly ?
-            <Monthly />
+          { (period == "month") ?
+            <Monthly period={period}/>
             : null
           }
-          { this.props.showYearly ?
-            <Yearly />
+          { (period == "year") ?
+            <div>
+              <Yearly period={period}/>
+              <Monthly period={period}/>
+            </div>
             : null
           }
           { this.props.showSkips ?
-            <Skips />
+            <Skips period={period}/>
             : null
           }
           { this.props.showSkipFreq ?
-            <SkipFreq />
+            <SkipFreq period={period}/>
             : null
           }
       </div>
@@ -151,11 +191,36 @@ class Recur extends Component {
 class Weekly extends Component {
   render() {
     return(
-      <div id="border" style={{width: "90%", background:"gray", border:"1px solid black"}}>
-        <h4>Weekly</h4>
-        <p>Selector for Day of the Week</p>
-
-      </div>
+      <FormGroup controlId="ev_DayOfWeek">
+        <Col componentClass={ControlLabel} sm={4}>
+          Day(s) of Week?
+        </Col>
+        <Col sm={3}>
+          <FormControl componentClass="select" placeholder="Monday">
+            <option value="Monday">
+             Monday
+            </option>
+            <option value="Tuesday">
+             Tuesday
+            </option>
+            <option value="Wednesday">
+             Wednesday
+            </option>
+            <option value="Thursday">
+             Thursday
+            </option>
+            <option value="Friday">
+             Friday
+            </option>
+            <option value="Saturday">
+             Saturday
+            </option>
+            <option value="Sunday">
+             Sunday
+            </option>
+          </FormControl>
+        </Col>
+      </FormGroup>
     );
   }
 }
@@ -163,7 +228,6 @@ class Weekly extends Component {
 class Monthly extends Component {
   render() {
     return(
-      <div>
         <FormGroup controlId="ev_DayOfMonth">
           <Col componentClass={ControlLabel} sm={4}>
             Date(s) of Month?
@@ -269,7 +333,6 @@ class Monthly extends Component {
             </FormControl>
           </Col>
         </FormGroup>
-      </div>
     );
   }
 }
@@ -277,32 +340,91 @@ class Monthly extends Component {
 class Yearly extends Component {
   render() {
     return(
-      <div id="border" style={{width: "90%", background:"gray", border:"1px solid black"}}>
-        <h4>Yearly</h4>
-        <p>Selector for Month of the Year</p>
-        <p>Selector for Date of the Month</p>
-      </div>
+      <FormGroup controlId="ev_MonthOfYear">
+        <Col componentClass={ControlLabel} sm={4}>
+          Month(s) of Year?
+        </Col>
+        <Col sm={3}>
+          <FormControl componentClass="select" placeholder="January">
+            <option value="January">
+             January
+            </option>
+            <option value="February">
+             February
+            </option>
+            <option value="March">
+             March
+            </option>
+            <option value="April">
+             April
+            </option>
+            <option value="May">
+             May
+            </option>
+            <option value="June">
+             June
+            </option>
+            <option value="July">
+             July
+            </option>
+            <option value="August">
+             August
+            </option>
+            <option value="September">
+             September
+            </option>
+            <option value="October">
+             October
+            </option>
+            <option value="November">
+             November
+            </option>
+            <option value="December">
+             December
+            </option>
+          </FormControl>
+        </Col>
+      </FormGroup>
     );
   }
 }
 
 class Skips extends Component {
   render() {
+    period = this.props.period;
     return(
-      <div id="border" style={{width: "90%", background:"gray", border:"1px solid black"}}>
-        <h4>Skips</h4>
-        <p>Checkbox to enable skipping weeks</p>
-      </div>
+        <FormGroup controlId="ev_SkipsEnabled">
+          <Col componentClass={ControlLabel} sm={4}>
+
+          </Col>
+          <Col sm={6}>
+            <Checkbox>
+              <span style={{fontWeight: 'bold'}}>Less often than every {period}?</span>
+            </Checkbox>
+            <HelpBlock>Use this for things like 'every other {period}'</HelpBlock>
+          </Col>
+        </FormGroup>
     );
   }
 }
 
 class SkipFreq extends Component {
   render() {
+    var period = this.props.period;
     return(
-      <div id="border" style={{width: "90%", background:"gray", border:"1px solid black"}}>
-        <h4>SkipFreq</h4>
-        <p>Conditionally hidden input for skip_freq</p>
+      <div>
+        <FormGroup controlId="ev_NumberOfSkips">
+          <Col componentClass={ControlLabel} sm={4}>
+            How Often?
+          </Col>
+          <Col sm={4}>
+            <InputGroup>
+              <InputGroup.Addon>Every</InputGroup.Addon>
+              <FormControl type="text" placeholder="2"/>
+              <InputGroup.Addon>{period}s</InputGroup.Addon>
+            </InputGroup>
+          </Col>
+        </FormGroup>
       </div>
     );
   }
