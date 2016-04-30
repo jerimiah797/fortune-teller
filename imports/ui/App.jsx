@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import EventsTable from './EventsTable.jsx';
 //import EventForm from './forms/EventForm.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
-import Navbar from './Navbar.jsx';
+import MyNavbar from './Navbar.jsx';
 import Hero from './Hero.jsx';
 import EventModal from './EventModal.jsx';
 
@@ -31,10 +31,8 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header>
-          <Navbar />
-        </header>
+      <div>
+        <MyNavbar />
 
         <EventsTable showModal={this.state.showModal} onHide={this.close} openEventModal={this.open} />
         { this.state.showModal ?

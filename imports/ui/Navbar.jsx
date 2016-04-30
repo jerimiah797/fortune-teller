@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
+
 
 // Task component - represents a single debit or credit account
-export default class Navbar extends Component {
+export default class MyNavbar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-inverse navbar-fixed-top">
-        <div className="container">
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-            <a className="navbar-brand" href="#">Fortune Teller</a>
-          </div>
-          <div id="navbar" className="collapse navbar-collapse">
-            <ul className="nav navbar-nav">
-              <li className="active"><a href="#">Home</a></li>
-              <li><a href="#items">Events</a></li>
-              <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Fortune</a></li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><a href="#" className="navbar-link"><AccountsUIWrapper /></a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Navbar inverse fixedTop>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="#">Fortune Teller</a>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            <NavItem eventKey={1} href="#">Events</NavItem>
+            <NavItem eventKey={2} href="#">Calendar</NavItem>
+            <NavDropdown eventKey={3} title="Fortune" id="basic-nav-dropdown">
+              <MenuItem eventKey={3.1}>Savings Goal</MenuItem>
+              <MenuItem eventKey={3.2}>Bill Eliminator</MenuItem>
+              <MenuItem eventKey={3.3}>Other Goal</MenuItem>
+              <MenuItem divider />
+              <MenuItem eventKey={3.3}>Tips</MenuItem>
+            </NavDropdown>
+          </Nav>
+          <Nav pullRight>
+            <NavItem eventKey={1} href="#">Donate</NavItem>
+            <NavItem eventKey={2} href="#"><AccountsUIWrapper /></NavItem>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }
