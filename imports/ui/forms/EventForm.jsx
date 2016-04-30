@@ -8,11 +8,12 @@ export default class EventForm extends Component {
     super(props);
     this.state = {
       recurring: false,
-      showSkips: true,
-      showSkipFreq: true,
+      showSkipCheckbox: true,
+      skipsEnabled: false,
+      skipNum: '',
       name: '',
       type: 'payment',
-      period: 'week',
+      period: '',
       amount: '',
     }
   }
@@ -41,6 +42,21 @@ export default class EventForm extends Component {
     }
   }
 
+  handlePeriodChange(e) {
+    if(e.target.value != this.state.period) {
+      this.setState({period: e.target.value});
+    }
+  }
+
+  handleSkipCheckbox(e) {
+    this.setState({skipsEnabled: !skipsEnabled});
+  }
+
+  handleSkipNumChange(e) {
+    this.setState({skipNum: e.target.value});
+    console.log(e.target.value);
+  }
+
   render() {
     return (
       <Form horizontal>
@@ -56,9 +72,13 @@ export default class EventForm extends Component {
           />
         { this.state.recurring ?
           <Recur
-            showSkips={this.state.showSkips}
-            showSkipFreq={this.state.showSkipFreq}
+            showSkipCheckbox={this.state.showSkipCheckbox}
+            skipsEnabled={this.state.skipsEnabled}
+            skipNum={this.state.skipNum}
             period={this.state.period}
+            handlePeriodChange={this.handlePeriodChange.bind(this)}
+            handleSkipCheckbox={this.handleSkipCheckbox.bind(this)}
+            handleSkipNumChange={this.handleSkipNumChange.bind(this)}
            />
           : null
         }
@@ -138,7 +158,13 @@ class Main extends Component {
 
 class Recur extends Component {
   render() {
-    var period = this.props.period;
+    period = this.props.period;
+    showSkipCheckbox = this.props.showSkipCheckbox;
+    skipsEnabled = this.props.skipsEnabled;
+    skipNum = this.props.skipNum;
+    handlePeriodChange = this.props.handlePeriodChange;
+    handleSkipCheckbox = this.props.handleSkipCheckbox;
+    handleSkipNumChange = this.props.handleSkipNumChange;
     return(
       <div>
         <FormGroup controlId="ev_Period">
@@ -146,15 +172,15 @@ class Recur extends Component {
             Every
           </Col>
           <Col sm={6}>
-            <Radio inline>
+            <Radio inline value="week" checked={(period == 'week') ? true : false} onChange={handlePeriodChange}>
               Week
             </Radio>
             {' '}
-            <Radio inline>
+            <Radio inline value="month" checked={(period == 'month') ? true : false} onChange={handlePeriodChange}>
               Month
             </Radio>
             {' '}
-            <Radio inline>
+            <Radio inline value="year" checked={(period == 'year') ? true : false} onChange={handlePeriodChange}>
               Year
             </Radio>
           </Col>
@@ -175,12 +201,12 @@ class Recur extends Component {
             </div>
             : null
           }
-          { this.props.showSkips ?
-            <Skips period={period}/>
+          { (period != '') ?
+            <Skips period={period} skipsEnabled={skipsEnabled} handleSkipCheckbox={handleSkipCheckbox}/>
             : null
           }
-          { this.props.showSkipFreq ?
-            <SkipFreq period={period}/>
+          { skipsEnabled ?
+            <SkipFreq period={period} skipNum={skipNum} handleSkipNumChange={handleSkipNumChange}/>
             : null
           }
       </div>
@@ -392,13 +418,15 @@ class Yearly extends Component {
 class Skips extends Component {
   render() {
     period = this.props.period;
+    skipsEnabled = this.props.skipsEnabled;
+    handleSkipCheckbox = this.props.handleSkipCheckbox;
     return(
         <FormGroup controlId="ev_SkipsEnabled">
           <Col componentClass={ControlLabel} sm={4}>
 
           </Col>
           <Col sm={6}>
-            <Checkbox>
+            <Checkbox checked={skipsEnabled} onChange={handleSkipCheckbox}>
               <span style={{fontWeight: 'bold'}}>Less often than every {period}?</span>
             </Checkbox>
             <HelpBlock>Use this for things like 'every other {period}'</HelpBlock>
@@ -410,7 +438,9 @@ class Skips extends Component {
 
 class SkipFreq extends Component {
   render() {
-    var period = this.props.period;
+    period = this.props.period;
+    skipNum = this.props.skipNum;
+    handleSkipNumChange = this.props.handleSkipNumChange;
     return(
       <div>
         <FormGroup controlId="ev_NumberOfSkips">
@@ -420,7 +450,7 @@ class SkipFreq extends Component {
           <Col sm={4}>
             <InputGroup>
               <InputGroup.Addon>Every</InputGroup.Addon>
-              <FormControl type="text" placeholder="2"/>
+              <FormControl type="text" placeholder="2" value={skipNum} onChange={handleSkipNumChange}/>
               <InputGroup.Addon>{period}s</InputGroup.Addon>
             </InputGroup>
           </Col>
