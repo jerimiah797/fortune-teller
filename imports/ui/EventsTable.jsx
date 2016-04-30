@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Table, Panel, Col, ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
 
 import { Events } from '../api/events.js';
 
@@ -29,53 +30,44 @@ class EventsTable extends Component {
     ));
   }
 
-
   render() {
+    openEventModal = this.props.openEventModal;
+    const title = (
+      <h4>Recurring Events</h4>
+    );
     return (
-      <div className="row">
-        <div className="col-md-12">
-          <div className="panel panel-default">
-            <div className="panel-body">
-              <div className="header">
-                <h4 className="title">Recurring Events</h4>
-
-                <p className="category">Payments and Income that occurr on a regular schedule</p>
-              </div>
-                <table className="table table-striped table-hover table-condensed">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Amount</th>
-                      <th>Type</th>
-                      <th>Frequency</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.renderEvents()}
-                    <tr>
-                      <td> </td>
-                      <td> </td>
-                      <td> </td>
-                      <td> </td>
-                      <td>
-                        <button type="button" className="add pull-right btn-primary btn-xs"
-                                id="show_form" onClick={this.props.openEventModal}>
-                          <span className="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                
-
-            </div>
-
-
-
-          </div>
-        </div>
+      <div>
+        <Col md={12}>
+          <Panel header={title}>
+            <Table striped condensed hover>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Amount</th>
+                  <th>Type</th>
+                  <th>Frequency</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.renderEvents()}
+                <tr>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td>
+                    <ButtonToolbar>
+                      <Button className="pull-right" bsStyle="primary" bsSize="xsmall" onClick={openEventModal}>
+                        <Glyphicon glyph="plus" /> Add
+                      </Button>
+                    </ButtonToolbar>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Panel>
+        </Col>
       </div>
     );
   }
