@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Form, FormGroup, FormControl, Col, Checkbox, Modal } from 'react-bootstrap';
 
-import EventForm from './forms/EventForm.jsx';
+import EventForm from './event_form/EventForm.jsx';
 
 export default class EventModal extends Component {
 
