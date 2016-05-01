@@ -24,14 +24,32 @@ class EventsTable extends Component {
   //   ];
   // }
 
+  populatedb() {
+    createdAt = new Date();
+    if (Events.find().count() === 0) {
+      console.log("repopulating events db")
+      Events.insert({name: "Car Payment", amount: 500, type: "payment", recurring: true, period: "month", createdAt: createdAt, dates:[4], skips: 0 });
+      Events.insert({name: "Mortgage", amount: 1500, type: "payment", recurring: true, period: "month", createdAt: createdAt, dates:[1], skips: 0 });
+      Events.insert({name: "Cell Phone", amount: 200, type: "payment", recurring: true, period: "month", createdAt: createdAt, dates:[6], skips: 0 });
+      Events.insert({name: "Car Insurance", amount:100, type: "payment", recurring: true, period: "month", createdAt: createdAt, dates:[12], skips: 0 });
+      Events.insert({name: "Gas", amount: 100, type: "payment", recurring: true, period: "month", createdAt: createdAt, dates:[1], skips: 0 });
+      Events.insert({name: "Paycheck", amount: 2500, type: "income", recurring: true, period: "month", createdAt: createdAt, dates:[5, 21], skips: 0 });
+      Events.insert({name: "Internet", amount: 120, type: "payment", recurring: true, period: "month", createdAt: createdAt, dates:[23], skips: 0 });
+      Events.insert({name: "Electric", amount: 90, type: "payment", recurring: true, period: "month", createdAt: createdAt, dates:[10], skips: 1 });
+    }
+  }
+
   renderEvents() {
     return this.props.events.map((event) => (
       <Event key={event._id} event={event} />
     ));
   }
 
+
+
   render() {
     openEventModal = this.props.openEventModal;
+    this.populatedb();
     const title = (
       <h4>Recurring Events</h4>
     );
@@ -45,13 +63,15 @@ class EventsTable extends Component {
                   <th>Name</th>
                   <th>Amount</th>
                   <th>Type</th>
-                  <th>Frequency</th>
+                  <th>Period</th>
+                  <th>Dates</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {this.renderEvents()}
                 <tr>
+                  <td> </td>
                   <td> </td>
                   <td> </td>
                   <td> </td>

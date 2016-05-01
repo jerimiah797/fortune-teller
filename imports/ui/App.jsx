@@ -33,12 +33,7 @@ export default class App extends Component {
     return (
       <div>
         <MyNavbar />
-
         <EventsTable showModal={this.state.showModal} onHide={this.close} openEventModal={this.open} />
-        { this.state.showModal ?
-          <p>The showModal state variable is now true</p>
-          : <p>The showModal state variable is now false</p>
-        }
         { this.state.showModal ?
           <EventModal showModal={this.state.showModal} onHide={this.close} />
           : null
