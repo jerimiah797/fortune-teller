@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Form, InputGroup, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Checkbox, Radio, Modal } from 'react-bootstrap';
-import { Events } from '../../api/events.js';
+import { Events } from '../../../api/events.js';
 
 import Main from './Main.jsx';
 import Recur from './Recur.jsx';

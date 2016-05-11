@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bootstrap } from 'meteor/twbs:bootstrap';
+//import { Bootstrap } from 'meteor/twbs:bootstrap';
 
 // Task component - represents a single debit or credit account
 export default class Hero extends Component {

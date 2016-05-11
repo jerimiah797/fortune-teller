@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
 
-import { Events } from '../api/events.js';
+import { Events } from '../../api/events.js';
 
 export default class Event extends Component {
 
@@ -9,27 +9,27 @@ export default class Event extends Component {
     Events.remove(this.props.event._id);
   }
 
-  occurrences() { //unused so far
-    return this.props.event.dates.length;
-  }
-
-  formatPeriod(period, skips) {   //unused so far
-    if (period == 'month') {
-      if (skips == 0) {
-        //console.log(this.occurrences());
-        if (this.occurrences() == 1) {
-          return "Once a Month";
-        } else {
-          s = this.occurrences()+" times a Month";
-          return s;
-        }
-      }
-      else {
-        s = "Every "+(skips+1)+" Months";
-        return s;
-      }
-    }
-  }
+  // occurrences() { //unused so far
+  //   return this.props.event.dates.length;
+  // }
+  //
+  // formatPeriod(period, skips) {   //unused so far
+  //   if (period == 'month') {
+  //     if (skips == 0) {
+  //       //console.log(this.occurrences());
+  //       if (this.occurrences() == 1) {
+  //         return "Once a Month";
+  //       } else {
+  //         s = this.occurrences()+" times a Month";
+  //         return s;
+  //       }
+  //     }
+  //     else {
+  //       s = "Every "+(skips+1)+" Months";
+  //       return s;
+  //     }
+  //   }
+  // }
 
 
 
