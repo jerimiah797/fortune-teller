@@ -6,38 +6,16 @@ import EventsTable from './EventsTable.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import MyNavbar from './Navbar.jsx';
 import Hero from './Hero.jsx';
-import EventModal from './EventModal.jsx';
+//import EventModal from './EventModal.jsx';
 
 // App component - represents the whole App
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal: false,
-    }
-    this.close = this.close.bind(this);
-    this.open = this.open.bind(this);
-  }
-
-  close() {
-    this.setState({ showModal: false });
-    console.log("setting showModal to false");
-  }
-
-  open() {
-    this.setState({ showModal: true });
-    console.log("setting showModal to true");
-  }
 
   render() {
     return (
       <div>
         <MyNavbar />
-        <EventsTable showModal={this.state.showModal} onHide={this.close} openEventModal={this.open} />
-        { this.state.showModal ?
-          <EventModal showModal={this.state.showModal} onHide={this.close} />
-          : null
-        }
+        <EventsTable />
       </div>
     );
   }

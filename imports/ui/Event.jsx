@@ -9,11 +9,11 @@ export default class Event extends Component {
     Events.remove(this.props.event._id);
   }
 
-  occurrences() {
+  occurrences() { //unused so far
     return this.props.event.dates.length;
   }
 
-  formatPeriod(period, skips) {
+  formatPeriod(period, skips) {   //unused so far
     if (period == 'month') {
       if (skips == 0) {
         //console.log(this.occurrences());
@@ -41,14 +41,14 @@ export default class Event extends Component {
         <td>{this.props.event.name}</td>
         <td>{this.props.event.amount}</td>
         <td>{this.props.event.type}</td>
-        <td>{this.formatPeriod(this.props.event.period, this.props.event.skips)}</td>
+        <td>{this.props.event.recurDescription}</td>
         <td>{this.props.event.dates.toString()}</td>
         <td>
           <ButtonToolbar>
             <Button className="pull-right" bsStyle="danger" bsSize="xsmall" value="delete" onClick={deleteThisEvent}>
               <Glyphicon glyph="remove" />
             </Button>
-            <Button className="pull-right" bsStyle="warning" bsSize="xsmall" value="edit" onClick={openEventModal}>
+            <Button className="pull-right" bsStyle="warning" bsSize="xsmall" value="edit" onClick={this.props.open}>
               <Glyphicon glyph="pencil" />
             </Button>
           </ButtonToolbar>

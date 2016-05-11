@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Form, InputGroup, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Checkbox, Radio } from 'react-bootstrap';
+import { Button, Form, InputGroup, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Checkbox, Radio, Modal } from 'react-bootstrap';
+import { Events } from '../../api/events.js';
 
+import Main from './Main.jsx';
+import Recur from './Recur.jsx';
 
 export default class EventForm extends Component {
   constructor(props) {
     super(props);
+    this.dates = new Array();
     this.state = {
       recurring: false,
       showSkipCheckbox: true,
@@ -15,6 +19,7 @@ export default class EventForm extends Component {
       type: 'payment',
       period: '',
       amount: '',
+      dates: this.dates,
     }
   }
 
@@ -57,405 +62,60 @@ export default class EventForm extends Component {
     console.log(e.target.value);
   }
 
+  handleDateChange(e) {
+
+  }
+
+  closeForm() {
+
+  }
+
+  handleSubmitEvent(e) {
+    createdAt = new Date();
+    console.log("adding an event")
+    Events.insert({name: this.state.name, amount: this.state.amount, type: this.state.type, recurring: this.state.recurring, period: this.state.period, createdAt: createdAt, dates:[4], skips: 0, recurDescription: "Once A Month" });
+    this.props.close;
+  }
+
   render() {
     return (
-      <Form horizontal>
-        <Main
-          name={this.state.name}
-          type={this.state.type}
-          amount={this.state.amount}
-          recurring={this.state.recurring}
-          handleNameChange={this.handleNameChange.bind(this)}
-          handleTypeChange={this.handleTypeChange.bind(this)}
-          handleAmountChange={this.handleAmountChange.bind(this)}
-          handleRecurChange={this.handleRecurChange.bind(this)}
-          />
-        { this.state.recurring ?
-          <Recur
-            showSkipCheckbox={this.state.showSkipCheckbox}
-            skipsEnabled={this.state.skipsEnabled}
-            skipNum={this.state.skipNum}
-            period={this.state.period}
-            handlePeriodChange={this.handlePeriodChange.bind(this)}
-            handleSkipCheckbox={this.handleSkipCheckbox.bind(this)}
-            handleSkipNumChange={this.handleSkipNumChange.bind(this)}
-           />
-          : null
-        }
-      </Form>
-    );
-  }
-}
-
-class Main extends Component {
-  render() {
-    name = this.props.name;
-    type = this.props.type;
-    amount = this.props.amount;
-    recurring = this.props.recurring;
-    handleNameChange = this.props.handleNameChange;
-    handleTypeChange = this.props.handleTypeChange;
-    handleAmountChange = this.props.handleAmountChange;
-    handleRecurChange = this.props.handleRecurChange;
-    return(
-      <div>
-        <FormGroup controlId="ev_Name">
-          <Col componentClass={ControlLabel} sm={4}>
-            Name
-          </Col>
-          <Col sm={4}>
-            <FormControl type="text" placeholder="Car Payment" value={name} onChange={handleNameChange}/>
-          </Col>
-        </FormGroup>
-
-        <FormGroup controlId="ev_Type">
-          <Col componentClass={ControlLabel} sm={4}>
-
-          </Col>
-          <Col sm={6}>
-            <Radio inline value="payment" checked={(type == 'payment') ? true : false} onChange={handleTypeChange}>
-              Payment
-            </Radio>
-            {' '}
-            <Radio inline value="income" checked={(type == 'income') ? true : false} onChange={handleTypeChange}>
-              Income
-            </Radio>
-          </Col>
-        </FormGroup>
-
-        <FormGroup controlId="ev_Amount">
-          <Col componentClass={ControlLabel} sm={4}>
-            Amount
-          </Col>
-          <Col sm={4}>
-            <InputGroup>
-              <InputGroup.Addon>$</InputGroup.Addon>
-              <FormControl type="text" placeholder="250" value={amount} onChange={handleAmountChange}/>
-              <InputGroup.Addon>.00</InputGroup.Addon>
-            </InputGroup>
-          </Col>
-        </FormGroup>
-
-        <FormGroup controlId="ev_Recur">
-          <Col componentClass={ControlLabel} sm={4}>
-
-          </Col>
-          <Col sm={6}>
-            <Radio inline value="once" checked={!recurring} onChange={handleRecurChange}>
-              One Time
-            </Radio>
-            {' '}
-            <Radio inline value='recurring' checked={recurring} onChange={handleRecurChange}>
-              Repeating
-            </Radio>
-            <HelpBlock>Select 'Repeating' if this item occurs on a regular basis.</HelpBlock>
-          </Col>
-        </FormGroup>
-      </div>
-    );
-  }
-}
-
-class Recur extends Component {
-  render() {
-    period = this.props.period;
-    showSkipCheckbox = this.props.showSkipCheckbox;
-    skipsEnabled = this.props.skipsEnabled;
-    skipNum = this.props.skipNum;
-    handlePeriodChange = this.props.handlePeriodChange;
-    handleSkipCheckbox = this.props.handleSkipCheckbox;
-    handleSkipNumChange = this.props.handleSkipNumChange;
-    return(
-      <div>
-        <FormGroup controlId="ev_Period">
-          <Col componentClass={ControlLabel} sm={4}>
-            Every
-          </Col>
-          <Col sm={6}>
-            <Radio inline value="week" checked={(period == 'week') ? true : false} onChange={handlePeriodChange}>
-              Week
-            </Radio>
-            {' '}
-            <Radio inline value="month" checked={(period == 'month') ? true : false} onChange={handlePeriodChange}>
-              Month
-            </Radio>
-            {' '}
-            <Radio inline value="year" checked={(period == 'year') ? true : false} onChange={handlePeriodChange}>
-              Year
-            </Radio>
-          </Col>
-        </FormGroup>
-
-          { (period == "week") ?
-            <Weekly period={period}/>
-            : null
-          }
-          { (period == "month") ?
-            <Monthly period={period}/>
-            : null
-          }
-          { (period == "year") ?
-            <div>
-              <Yearly period={period}/>
-              <Monthly period={period}/>
-            </div>
-            : null
-          }
-          { (period != '') ?
-            <Skips period={period} skipsEnabled={skipsEnabled} handleSkipCheckbox={handleSkipCheckbox}/>
-            : null
-          }
-          { skipsEnabled ?
-            <SkipFreq period={period} skipNum={skipNum} handleSkipNumChange={handleSkipNumChange}/>
-            : null
-          }
-      </div>
-    );
-  }
-}
-
-class Weekly extends Component {
-  render() {
-    return(
-      <FormGroup controlId="ev_DayOfWeek">
-        <Col componentClass={ControlLabel} sm={4}>
-          Day(s) of Week?
-        </Col>
-        <Col sm={3}>
-          <FormControl componentClass="select" placeholder="Monday">
-            <option value="Monday">
-             Monday
-            </option>
-            <option value="Tuesday">
-             Tuesday
-            </option>
-            <option value="Wednesday">
-             Wednesday
-            </option>
-            <option value="Thursday">
-             Thursday
-            </option>
-            <option value="Friday">
-             Friday
-            </option>
-            <option value="Saturday">
-             Saturday
-            </option>
-            <option value="Sunday">
-             Sunday
-            </option>
-          </FormControl>
-        </Col>
-      </FormGroup>
-    );
-  }
-}
-
-class Monthly extends Component {
-  render() {
-    return(
-        <FormGroup controlId="ev_DayOfMonth">
-          <Col componentClass={ControlLabel} sm={4}>
-            Date(s) of Month?
-          </Col>
-          <Col sm={3}>
-            <FormControl componentClass="select" placeholder="0">
-              <option value="0">
-                Pick a date
-              </option>
-              <option value="1">
-              1
-              </option>
-              <option value="2">
-              2
-              </option>
-              <option value="3">
-              3
-              </option>
-              <option value="4">
-              4
-              </option>
-              <option value="5">
-              5
-              </option>
-              <option value="6">
-              6
-              </option>
-              <option value="7">
-              7
-              </option>
-              <option value="8">
-              8
-              </option>
-              <option value="9">
-              9
-              </option>
-              <option value="10">
-              10
-              </option>
-              <option value="11">
-              11
-              </option>
-              <option value="12">
-              12
-              </option>
-              <option value="13">
-              13
-              </option>
-              <option value="14">
-              14
-              </option>
-              <option value="15">
-              15
-              </option>
-              <option value="16">
-              16
-              </option>
-              <option value="17">
-              17
-              </option>
-              <option value="18">
-              18
-              </option>
-              <option value="19">
-              19
-              </option>
-              <option value="20">
-              20
-              </option>
-              <option value="21">
-              21
-              </option>
-              <option value="22">
-              22
-              </option>
-              <option value="23">
-              23
-              </option>
-              <option value="24">
-              24
-              </option>
-              <option value="25">
-              25
-              </option>
-              <option value="26">
-              26
-              </option>
-              <option value="27">
-              27
-              </option>
-              <option value="28">
-              28
-              </option>
-              <option value="29">
-              29
-              </option>
-              <option value="30">
-              30
-              </option>
-              <option value="31">
-              31
-              </option>
-            </FormControl>
-          </Col>
-        </FormGroup>
-    );
-  }
-}
-
-class Yearly extends Component {
-  render() {
-    return(
-      <FormGroup controlId="ev_MonthOfYear">
-        <Col componentClass={ControlLabel} sm={4}>
-          Month(s) of Year?
-        </Col>
-        <Col sm={3}>
-          <FormControl componentClass="select" placeholder="January">
-            <option value="January">
-             January
-            </option>
-            <option value="February">
-             February
-            </option>
-            <option value="March">
-             March
-            </option>
-            <option value="April">
-             April
-            </option>
-            <option value="May">
-             May
-            </option>
-            <option value="June">
-             June
-            </option>
-            <option value="July">
-             July
-            </option>
-            <option value="August">
-             August
-            </option>
-            <option value="September">
-             September
-            </option>
-            <option value="October">
-             October
-            </option>
-            <option value="November">
-             November
-            </option>
-            <option value="December">
-             December
-            </option>
-          </FormControl>
-        </Col>
-      </FormGroup>
-    );
-  }
-}
-
-class Skips extends Component {
-  render() {
-    period = this.props.period;
-    skipsEnabled = this.props.skipsEnabled;
-    handleSkipCheckbox = this.props.handleSkipCheckbox;
-    return(
-        <FormGroup controlId="ev_SkipsEnabled">
-          <Col componentClass={ControlLabel} sm={4}>
-
-          </Col>
-          <Col sm={6}>
-            <Checkbox checked={skipsEnabled} onChange={handleSkipCheckbox}>
-              <span style={{fontWeight: 'bold'}}>Less often than every {period}?</span>
-            </Checkbox>
-            <HelpBlock>Use this for things like 'every other {period}'</HelpBlock>
-          </Col>
-        </FormGroup>
-    );
-  }
-}
-
-class SkipFreq extends Component {
-  render() {
-    period = this.props.period;
-    skipNum = this.props.skipNum;
-    handleSkipNumChange = this.props.handleSkipNumChange;
-    return(
-      <div>
-        <FormGroup controlId="ev_NumberOfSkips">
-          <Col componentClass={ControlLabel} sm={4}>
-            How Often?
-          </Col>
-          <Col sm={4}>
-            <InputGroup>
-              <InputGroup.Addon>Every</InputGroup.Addon>
-              <FormControl type="text" placeholder="2" value={skipNum} onChange={handleSkipNumChange}/>
-              <InputGroup.Addon>{period}s</InputGroup.Addon>
-            </InputGroup>
-          </Col>
-        </FormGroup>
-      </div>
+      <Modal show={this.props.showModal}>
+        <Modal.Header>
+          <Modal.Title>Create an Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form horizontal>
+            <Main
+              name={this.state.name}
+              type={this.state.type}
+              amount={this.state.amount}
+              recurring={this.state.recurring}
+              handleNameChange={this.handleNameChange.bind(this)}
+              handleTypeChange={this.handleTypeChange.bind(this)}
+              handleAmountChange={this.handleAmountChange.bind(this)}
+              handleRecurChange={this.handleRecurChange.bind(this)}
+              />
+            { this.state.recurring ?
+              <Recur
+                showSkipCheckbox={this.state.showSkipCheckbox}
+                skipsEnabled={this.state.skipsEnabled}
+                skipNum={this.state.skipNum}
+                period={this.state.period}
+                dates={this.state.dates}
+                handlePeriodChange={this.handlePeriodChange.bind(this)}
+                handleSkipCheckbox={this.handleSkipCheckbox.bind(this)}
+                handleSkipNumChange={this.handleSkipNumChange.bind(this)}
+                handleDatesChange={this.handleDateChange.bind(this)}
+               />
+              : null
+            }
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.handleSubmitEvent.bind(this)}>Save</Button>
+          <Button onClick={this.props.close}>Cancel</Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
