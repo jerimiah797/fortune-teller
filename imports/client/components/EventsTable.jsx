@@ -8,6 +8,10 @@ import ReactDOM from 'react-dom';
 import Event from './Event.jsx';
 import EventForm from './event_form/EventForm.jsx';
 
+import * as actionCreators from '../actions/EventForm.js';
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+
 // Task component - represents a single debit or credit account
 class EventsTable extends Component {
   // constructor(props) {
@@ -56,6 +60,10 @@ class EventsTable extends Component {
   //     Events.insert({name: "Electric", amount: 90, type: "payment", recurring: true, period: "month", createdAt: createdAt, dates:[10], skips: 1, recurDescription: "Every 2 Months" });
   //   }
   // }
+  openAddEventModal() {
+    console.info("Add button was clicked.");
+    this.props.actions.showEventForm(true);
+  }
 
   renderEvents() {
     return this.props.events.map((event) => (
@@ -93,7 +101,7 @@ class EventsTable extends Component {
                   <td> </td>
                   <td>
                     <ButtonToolbar>
-                      <Button className="pull-right" bsStyle="primary" bsSize="xsmall" onClick={this.open}>
+                      <Button className="pull-right" bsStyle="primary" bsSize="xsmall" onClick={this.openAddEventModal.bind(this)}>
                         <Glyphicon glyph="plus" /> Add
                       </Button>
                     </ButtonToolbar>
@@ -103,8 +111,8 @@ class EventsTable extends Component {
             </Table>
           </Panel>
         </Col>
-        { true ?
-          <EventForm showModal={false} close={this.close} />
+        { this.props.visible ?
+          <EventForm />
           : null
         }
       </div>
@@ -116,8 +124,18 @@ EventsTable.propTypes = {
   events: PropTypes.array.isRequired,
 };
 
+function mapStateToProps(state) {
+  return { visible: state.eventForm.visible };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+}
+
+//export default connect(mapStateToProps, mapDispatchToProps)(EventsTable);
+
 export default createContainer(() => {
   return {
     events: Events.find({}).fetch(),
   };
-}, EventsTable);
+}, connect(mapStateToProps, mapDispatchToProps)(EventsTable));
