@@ -2,11 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Form, InputGroup, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Checkbox, Radio, Modal } from 'react-bootstrap';
 import { Events } from '../../../api/events.js';
+import * as actionCreators from '../../actions/EventForm.js';
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
 import Main from './Main.jsx';
 import Recur from './Recur.jsx';
 
-export default class EventForm extends Component {
+class EventForm extends Component {
   constructor(props) {
     super(props);
     this.dates = new Array();
@@ -67,7 +70,8 @@ export default class EventForm extends Component {
   }
 
   closeForm() {
-
+    console.info("Cancel button was clicked.");
+    this.props.actions.showEventForm(false);
   }
 
   handleSubmitEvent(e) {
@@ -79,7 +83,7 @@ export default class EventForm extends Component {
 
   render() {
     return (
-      <Modal show={this.props.showModal}>
+      <Modal show={this.props.visible}>
         <Modal.Header>
           <Modal.Title>Create an Event</Modal.Title>
         </Modal.Header>
@@ -113,9 +117,19 @@ export default class EventForm extends Component {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.handleSubmitEvent.bind(this)}>Save</Button>
-          <Button onClick={this.props.close}>Cancel</Button>
+          <Button onClick={this.closeForm.bind(this)}>Cancel</Button>
         </Modal.Footer>
       </Modal>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { visible: state.eventForm.visible };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(actionCreators, dispatch) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventForm);

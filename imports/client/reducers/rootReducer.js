@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import tempReducer from './tempReducer.js';
+import eventFormReducer from './eventFormReducer.js';
 //import userReducer from './userReducer.js';
 //import speakerReducer from './speakerReducer.js';
 
 
 var rootReducer = combineReducers({
-  temp: tempReducer,
+  eventForm: eventFormReducer,
 //  items: itemsReducer,
 //  speaker: speakerReducer
 })
