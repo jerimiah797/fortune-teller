@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Table, Panel, Col, ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
+import MediaQuery from 'react-responsive';
 
 import { Events } from '../../api/events.js';
 
@@ -86,8 +87,12 @@ class EventsTable extends Component {
                   <th>Name</th>
                   <th>Amount</th>
                   <th>Type</th>
-                  <th>Period</th>
-                  <th>Dates</th>
+                  <MediaQuery minDeviceWidth={1224} component="th">
+                    Period
+                  </MediaQuery>
+                  <MediaQuery minDeviceWidth={1224} component="th">
+                    Dates
+                  </MediaQuery>
                   <th></th>
                 </tr>
               </thead>
@@ -97,8 +102,8 @@ class EventsTable extends Component {
                   <td> </td>
                   <td> </td>
                   <td> </td>
-                  <td> </td>
-                  <td> </td>
+                  <MediaQuery minDeviceWidth={1224} component="td" />
+                  <MediaQuery minDeviceWidth={1224} component="td" />
                   <td>
                     <ButtonToolbar>
                       <Button className="pull-right" bsStyle="primary" bsSize="xsmall" onClick={this.openAddEventModal.bind(this)}>

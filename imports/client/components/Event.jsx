@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
+import MediaQuery from 'react-responsive';
+
 
 import { Events } from '../../api/events.js';
 
@@ -39,10 +41,14 @@ export default class Event extends Component {
     return (
       <tr>
         <td>{this.props.event.name}</td>
-        <td>{this.props.event.amount}</td>
+        <td>${this.props.event.amount}</td>
         <td>{this.props.event.type}</td>
-        <td>{this.props.event.recurDescription}</td>
-        <td>{this.props.event.dates.toString()}</td>
+        <MediaQuery minDeviceWidth={1224} component="td">
+          {this.props.event.recurDescription}
+        </MediaQuery>
+        <MediaQuery minDeviceWidth={1224} component="td">
+          {this.props.event.dates.toString()}
+        </MediaQuery>
         <td>
           <ButtonToolbar>
             <Button className="pull-right" bsStyle="danger" bsSize="xsmall" value="delete" onClick={deleteThisEvent}>
