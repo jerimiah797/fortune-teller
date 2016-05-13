@@ -9,11 +9,13 @@ import Hero from './Hero.jsx';
 // App component - represents the whole App
 export default class App extends Component {
   render() {
-    if (!this.props.currentUser) {
-      console.error("Still waiting for user info");
-      //return false;
+    var userDataAvailable = true;
+
+    if (this.props.currentUser !== undefined) {
+      console.log(this.props.currentUser);
     } else {
       console.log(this.props.currentUser);
+      userDataAvailable = false;
     }
 
     // var logged_in = function() {
@@ -26,8 +28,8 @@ export default class App extends Component {
     return (
       <div>
         <MyNavbar />
-        {!this.props.currentUser ? <Hero /> : null }
-        {this.props.currentUser ? <EventsTable /> : null}
+        {(!this.props.currentUser && userDataAvailable)? <Hero /> : null }
+        {(this.props.currentUser && userDataAvailable) ? <EventsTable /> : null}
       </div>
     );
   }

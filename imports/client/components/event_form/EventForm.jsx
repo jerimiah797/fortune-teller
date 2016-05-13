@@ -75,10 +75,10 @@ class EventForm extends Component {
   }
 
   handleSubmitEvent(e) {
+    this.props.actions.showEventForm(false);
     createdAt = new Date();
     console.log("adding an event")
     Events.insert({name: this.state.name, amount: this.state.amount, type: this.state.type, recurring: this.state.recurring, period: this.state.period, createdAt: createdAt, dates:[4], skips: 0, recurDescription: "Once A Month" });
-    this.props.close;
   }
 
   render() {
