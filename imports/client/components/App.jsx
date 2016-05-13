@@ -22,11 +22,12 @@ export default class App extends Component {
     //   )
     // }
 
+
     return (
       <div>
         <MyNavbar />
-        <Hero />
-        <EventsTable />
+        {!this.props.currentUser ? <Hero /> : null }
+        {this.props.currentUser ? <EventsTable /> : null}
       </div>
     );
   }
