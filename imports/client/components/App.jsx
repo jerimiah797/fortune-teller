@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import EventsTable from './EventsTable.jsx';
-//import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import MyNavbar from './Navbar.jsx';
 import Hero from './Hero.jsx';
 
@@ -10,20 +9,9 @@ import Hero from './Hero.jsx';
 export default class App extends Component {
   render() {
     var userDataAvailable = true;
-
-    if (this.props.currentUser !== undefined) {
-      console.log(this.props.currentUser);
-    } else {
-      console.log(this.props.currentUser);
+    if (this.props.currentUser === undefined) {
       userDataAvailable = false;
     }
-
-    // var logged_in = function() {
-    //   return (
-    //
-    //   )
-    // }
-
 
     return (
       <div>
