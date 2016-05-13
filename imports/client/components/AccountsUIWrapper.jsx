@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
-//import 'meteor/ian:accounts-ui-bootstrap-3';
 import { Blaze } from 'meteor/blaze';
 
 export default class AccountsUIWrapper extends Component {
