@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import EventsTable from './EventsTable.jsx';
+import Ledger from './Ledger.jsx';
 import MyNavbar from './Navbar.jsx';
 import Hero from './Hero.jsx';
 
@@ -30,7 +31,7 @@ export default class App extends Component {
       <div>
         <MyNavbar />
         { loggedOut ? <Hero /> : null }
-        { loggedIn ? <EventsTable /> : null}
+        { loggedIn ? <Ledger /> : null}
       </div>
     );
   }
