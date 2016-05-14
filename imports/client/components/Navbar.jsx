@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
-
+import { IndexLink } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 
 // Task component - represents a single debit or credit account
 export default class MyNavbar extends Component {
@@ -10,14 +11,18 @@ export default class MyNavbar extends Component {
       <Navbar inverse fixedTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">Fortune Teller</a>
+            <IndexLink to="/">Fortune Teller</IndexLink>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} href="#">Events</NavItem>
-            <NavItem eventKey={2} href="#">Calendar</NavItem>
+            <LinkContainer to={{ pathname: '/events' }}>
+              <NavItem eventKey={1} href="events">Events</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '/ledger' }}>
+              <NavItem eventKey={2} href="ledger">Ledger</NavItem>
+            </LinkContainer>
             <NavDropdown eventKey={3} title="Fortune" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Savings Goal</MenuItem>
               <MenuItem eventKey={3.2}>Bill Eliminator</MenuItem>

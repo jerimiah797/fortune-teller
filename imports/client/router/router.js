@@ -5,12 +5,15 @@ import AppContainer from '../containers/AppContainer.jsx';
 
 import EventsTable from '../components/EventsTable.jsx';
 import Ledger from '../components/Ledger.jsx';
+import Hero from '../components/Hero.jsx';
 import { NotFound } from '../components/NotFound.jsx';
 
 export default (
   <Router history={browserHistory}>
     <Route path="/" component={ AppContainer }>
-      <IndexRoute component={ EventsTable } />
+      <IndexRoute component={ Hero } />
+      <Route path="events" component={ EventsTable} />
+      <Route path="ledger" component={ Ledger } />
     </Route>
     <Route path="*" component={ NotFound }>
     </Route>
