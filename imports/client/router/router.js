@@ -6,6 +6,7 @@ import AppContainer from '../containers/AppContainer.jsx';
 import EventsTable from '../components/EventsTable.jsx';
 import Ledger from '../components/Ledger.jsx';
 import Hero from '../components/Hero.jsx';
+import About from '../components/About.jsx';
 import { NotFound } from '../components/NotFound.jsx';
 
 export default (
@@ -14,6 +15,7 @@ export default (
       <IndexRoute component={ Hero } />
       <Route path="events" component={ EventsTable} />
       <Route path="ledger" component={ Ledger } />
+      <Route path="about" component={ About } />
     </Route>
     <Route path="*" component={ NotFound }>
     </Route>

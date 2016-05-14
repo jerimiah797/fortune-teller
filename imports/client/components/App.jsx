@@ -29,7 +29,7 @@ export default class App extends Component {
     children = this.props.children;
     return (
       <div>
-        <MyNavbar />
+        {loggedIn || loggedOut ? <MyNavbar loggedIn={loggedIn} /> : null}
         {loggedOut ? <Hero /> : null }
         {loggedIn ? children : null}
       </div>
