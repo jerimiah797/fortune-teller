@@ -78,12 +78,23 @@ class EventForm extends Component {
     this.props.actions.showEventForm(false);
     createdAt = new Date();
     console.log("adding an event")
-    Events.insert({name: this.state.name, amount: this.state.amount, type: this.state.type, recurring: this.state.recurring, period: this.state.period, createdAt: createdAt, dates:[4], skips: 0, recurDescription: "Once A Month" });
+    var result = Events.insert({name: this.state.name, amount: this.state.amount, type: this.state.type, recurring: this.state.recurring, period: this.state.period, createdAt: createdAt, dates:[4], skips: 0, recurDescription: "Once A Month" });
+    console.log(result);
+  }
+
+  handleKeypress(e) {
+    e.persist();
+    console.log(e.key);
+    console.log(e.charCode);
+    console.log(e.which);
+    if (e.key == "Escape") {
+      this.props.actions.showEventForm(false);
+    }
   }
 
   render() {
     return (
-      <Modal show={this.props.visible}>
+      <Modal show={this.props.visible} onKeyDown={this.handleKeypress.bind(this)}>
         <Modal.Header>
           <Modal.Title>Create an Event</Modal.Title>
         </Modal.Header>

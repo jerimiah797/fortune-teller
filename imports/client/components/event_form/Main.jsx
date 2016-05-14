@@ -19,7 +19,7 @@ export default class Main extends Component {
             Name
           </Col>
           <Col sm={4}>
-            <FormControl type="text" placeholder="Car Payment" value={name} onChange={handleNameChange}/>
+            <FormControl type="text" placeholder="Car Payment" value={name} onChange={handleNameChange} autoFocus/>
           </Col>
         </FormGroup>
 
