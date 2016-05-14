@@ -1,12 +1,10 @@
+// App.jsx
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import EventsTable from './EventsTable.jsx';
-import Ledger from './Ledger.jsx';
 import MyNavbar from './Navbar.jsx';
 import Hero from './Hero.jsx';
 
-// App component - represents the whole App
 export default class App extends Component {
   render() {
     // This seems hacky, but this.props.currentUser is subscribed
@@ -17,7 +15,8 @@ export default class App extends Component {
     // to update before we display user-level components other than the navbar
     // rather than briefly show the logged out homepage before the logged in
     // page.
-    // console.log(this.props);
+     console.log("this.props.currentUser: "+this.props.currentUser);
+
     var userDataAvailable = true;
     var currentUser = this.props.currentUser;
     if (currentUser === undefined) {
@@ -27,11 +26,12 @@ export default class App extends Component {
     var loggedOut = (!currentUser && userDataAvailable);
     var loggedIn = (currentUser && userDataAvailable);
 
+    children = this.props.children;
     return (
       <div>
         <MyNavbar />
-        { loggedOut ? <Hero /> : null }
-        { loggedIn ? <Ledger /> : null}
+        {loggedOut ? <Hero /> : null }
+        {loggedIn ? children : null}
       </div>
     );
   }
