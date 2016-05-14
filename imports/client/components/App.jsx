@@ -15,7 +15,7 @@ export default class App extends Component {
     // to update before we display user-level components other than the navbar
     // rather than briefly show the logged out homepage before the logged in
     // page.
-     console.log("this.props.currentUser: "+this.props.currentUser);
+    // console.log("this.props.currentUser: "+this.props.currentUser);
 
     var userDataAvailable = true;
     var currentUser = this.props.currentUser;
