@@ -10,7 +10,7 @@ import NotFound from '../components/NotFound.jsx';
 
 export default (
     <Route path="/" component={ App }>
-      <IndexRoute loggedIn={false} components={{ nav: Navbar, content: Hero }}></IndexRoute>
+      <IndexRoute loggedIn={false} components={{ nav: null, content: Hero }}></IndexRoute>
       <Redirect from="*" to="/" />
     </Route>
 );
