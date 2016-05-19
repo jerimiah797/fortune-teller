@@ -7,7 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 // Task component - represents a single debit or credit account
 export default class MyNavbar extends Component {
   render() {
-
+    signedIn = this.props.routes[0].loggedIn
     signedInNav =
         <Nav>
           <LinkContainer to={{ pathname: '/events' }}>
@@ -28,7 +28,7 @@ export default class MyNavbar extends Component {
 
     console.log(this.props);
     return (
-      <Navbar inverse fixedTop>
+      <Navbar inverse fixedTop fluid>
         <Navbar.Header>
           <Navbar.Brand>
             <IndexLink to="/">Fortune Teller</IndexLink>
@@ -36,7 +36,7 @@ export default class MyNavbar extends Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          {this.props.loggedIn ? signedInNav : null}
+          {signedIn ? signedInNav : null}
           <Nav pullRight>
             <LinkContainer to={{ pathname: '/about' }}>
               <NavItem eventKey={1} href="/about">About</NavItem>

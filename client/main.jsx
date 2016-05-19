@@ -2,15 +2,15 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import Store from '../imports/client/store/store.js';
-//import AppContainer from '../imports/client/containers/AppContainer.jsx';
-import Router from '../imports/client/router/router.js';
+import App_SuperContainer from '../imports/client/containers/App_SuperContainer.jsx';
+//import Store from '../imports/client/store/store.js';
+//import Routes from '../imports/client/router/RouterContainer.jsx';
+//import Routes from '../imports/client/router/router.jsx';
+
 
 function AppRoot() {
   return (
-    <Provider store={Store}>
-      {Router}
-    </Provider>
+    <App_SuperContainer/>
   )
 }
 
