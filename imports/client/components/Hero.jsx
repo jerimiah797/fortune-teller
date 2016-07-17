@@ -10,7 +10,7 @@ export default class Hero extends Component {
               <img src="LargeCrystalBallTransparent.png" className="img-responsive center-block" />
             </div>
             <div className="col-md-7 col-sm-5 col-xs-9 hero-padding">
-              <span className="text-center"><AccountsUIWrapper /></span>
+              <span className="text-center"><AccountsUIWrapper loggedIn={this.props.loggedIn} /></span>
               <h1 className="text-center">FORTUNE TELLER</h1>
               <br />
               <h4 className="text-center"><i>Helping you see the future of your money</i></h4>

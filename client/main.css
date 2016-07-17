@@ -1,20 +1,23 @@
 /* CSS declarations go here */
-/*body {
+body {
   padding-top: 50px;
-}*/
+  background-color: #eee;
+}
 
 .panel-default {
-  margin-top: 70px
+  margin-top: 20px
 }
+
 .starter-template {
   padding: 40px 15px;
   text-align: center;
 }
 
 @media screen and (min-width: 768px){
-.jumbotron h1, .jumbotron .h1 {
-    padding-top: 50px;
-}}
+  .jumbotron h1, .jumbotron .h1 {
+      padding-top: 50px;
+  }
+}
 
 @media screen and (min-width: 992px){
 .jumbotron h1, .jumbotron .h1 {

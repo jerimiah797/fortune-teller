@@ -4,7 +4,7 @@ import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
-// Task component - represents a single debit or credit account
+
 export default class MyNavbar extends Component {
   render() {
     signedIn = this.props.routes[0].loggedIn
