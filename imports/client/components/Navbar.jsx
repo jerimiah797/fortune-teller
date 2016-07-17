@@ -26,7 +26,7 @@ export default class MyNavbar extends Component {
         </Nav>;
 
 
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <Navbar inverse fixedTop fluid>
         <Navbar.Header>
