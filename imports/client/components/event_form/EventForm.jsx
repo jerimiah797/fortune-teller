@@ -32,9 +32,9 @@ class EventForm extends Component {
 
   handleTypeChange(e) {
     if (e.target.value != this.state.type) {
-      (this.state.type == 'payment') ?
-        this.setState({type: 'income'})
-        : this.setState({type: 'payment'});
+      (this.state.type == 'Payment') ?
+        this.setState({type: 'Income'})
+        : this.setState({type: 'Payment'});
     }
   }
 
@@ -78,15 +78,23 @@ class EventForm extends Component {
     this.props.actions.showEventForm(false);
     createdAt = new Date();
     console.log("adding an event")
-    var result = Events.insert({name: this.state.name, amount: this.state.amount, type: this.state.type, recurring: this.state.recurring, period: this.state.period, createdAt: createdAt, dates:[4], skips: 0, recurDescription: "Once A Month" });
+    var result = Events.insert({name: this.state.name
+                              , amount: this.state.amount
+                              , type: this.state.type
+                              , recurring: this.state.recurring
+                              , period: this.state.period
+                              , createdAt: createdAt
+                              , dates:[4]
+                              , skips: 0
+                              , recurDescription: "Once A Month" });
     console.log(result);
   }
 
   handleKeypress(e) {
     e.persist();
-    console.log(e.key);
-    console.log(e.charCode);
-    console.log(e.which);
+    //console.log(e.key);
+    //console.log(e.charCode);
+    //console.log(e.which);
     if (e.key == "Escape") {
       this.props.actions.showEventForm(false);
     }

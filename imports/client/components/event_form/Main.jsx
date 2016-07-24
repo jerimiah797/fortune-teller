@@ -28,11 +28,11 @@ export default class Main extends Component {
 
           </Col>
           <Col sm={6}>
-            <Radio inline value="payment" checked={(type == 'payment') ? true : false} onChange={handleTypeChange}>
+            <Radio inline value="Payment" checked={(type == 'Payment') ? true : false} onChange={handleTypeChange}>
               Payment
             </Radio>
             {' '}
-            <Radio inline value="income" checked={(type == 'income') ? true : false} onChange={handleTypeChange}>
+            <Radio inline value="Income" checked={(type == 'Income') ? true : false} onChange={handleTypeChange}>
               Income
             </Radio>
           </Col>
