@@ -2,6 +2,8 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+
+import '../imports/startup/accounts-config.js';
 import App_SuperContainer from '../imports/client/containers/App_SuperContainer.jsx';
 //import Store from '../imports/client/store/store.js';
 //import Routes from '../imports/client/router/RouterContainer.jsx';

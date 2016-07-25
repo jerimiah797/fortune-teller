@@ -1,15 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Table, Panel, Col, ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
+import { Table, Panel, Col, Row, ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
 import MediaQuery from 'react-responsive';
 
 import { Events } from '../../api/events.js';
+import { Meteor } from 'meteor/meteor';
 
 import ReactDOM from 'react-dom';
 import Event from './Event.jsx';
 import EventForm from './event_form/EventForm.jsx';
 
-import * as actionCreators from '../actions/EventForm.js';
+import * as actionCreators from '../actions/Events.js';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 
@@ -21,6 +22,9 @@ class EventsTable extends Component {
   }
 
   renderEvents() {
+    console.log(this.props.events.length)
+    console.log(Meteor.userId())
+    console.log(Meteor.user().username)
     return this.props.events.map((event) => (
       <Event key={event._id} event={event} />
     ));
@@ -33,7 +37,7 @@ class EventsTable extends Component {
     );
     return (
       <div>
-        <Col md={12}>
+
           <Panel header={title}>
             <Table striped condensed hover>
               <thead>
@@ -69,7 +73,7 @@ class EventsTable extends Component {
               </tbody>
             </Table>
           </Panel>
-        </Col>
+
         { this.props.visible ?
           <EventForm />
           : null

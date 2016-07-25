@@ -9,7 +9,19 @@ export default class App extends Component {
     return (
       <div>
         {this.props.nav}
-        {this.props.content}
+
+        <div>
+          <div className="col-fixed">
+            {this.props.sidebar}
+          </div>
+          <div className="row">
+            <div className="col-md-12">
+              {this.props.content}
+            </div>
+
+          </div>
+        </div>
+
       </div>
     );
   }

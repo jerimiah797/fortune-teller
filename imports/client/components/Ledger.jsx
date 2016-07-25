@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 import Event from './Event.jsx';
 import EventForm from './event_form/EventForm.jsx';
 
-import * as actionCreators from '../actions/EventForm.js';
+import * as actionCreators from '../actions/Events.js';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 
@@ -28,7 +28,7 @@ class EventsTable extends Component {
     );
     return (
       <div>
-        <Col md={12}>
+
           <Panel header={title}>
             <Table striped condensed hover>
               <thead>
@@ -54,7 +54,7 @@ class EventsTable extends Component {
               </tbody>
             </Table>
           </Panel>
-        </Col>
+
         { this.props.visible ?
           <EventForm />
           : null
